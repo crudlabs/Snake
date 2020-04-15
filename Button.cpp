@@ -12,6 +12,11 @@ Button::Button(int _buttonPin)
   checkInt = 20;
 }
 
+Button::Button(int _buttonPin, int _buttonType):Button(_buttonPin)
+{
+  buttonType = _buttonType;
+}
+
 void Button::process()
 {
   if (millis() < lastCheck + checkInt) return;
@@ -22,19 +27,19 @@ void Button::process()
   buttonState = digitalRead(buttonPin);
 
   if (lastButtonState == LOW && buttonState == HIGH) {
-    pressCallback();
+    pressCallback(buttonType);
   }
   if (lastButtonState == HIGH && buttonState == LOW) {
 //    releaseCallback();
   }
 }
 
-void Button::pressHandler(void (*f)())    //button down
+void Button::pressHandler(void (*f)(int))    //button down
 {
   pressCallback = *f;
 }
 
-void Button::releaseHandler(void (*f)())  //button release
+void Button::releaseHandler(void (*f)(int))  //button release
 {
   releaseCallback = *f;
 }

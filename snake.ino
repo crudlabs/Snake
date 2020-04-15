@@ -7,8 +7,8 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioSynthWaveform       waveform1;      //xy=301,144.00000190734863
-AudioOutputAnalog        dac1;           //xy=565,159
+AudioSynthWaveform       waveform1;
+AudioOutputAnalog        dac1;
 AudioConnection          patchCord1(waveform1, dac1);
 // GUItool: end automatically generated code
 
@@ -24,14 +24,10 @@ const int MOVE  = 0;
 const int EAT   = 1;
 const int LOSE  = 2;
 
-Button leftButton(11);
-Button rightButton(9);
-Button upButton(8);
-Button downButton(10);
-
-Button aButton(20);
-Button bButton(21);
-
+Button leftButton(11, Button::LEFT);
+Button rightButton(9, Button::RIGHT);
+Button upButton(8, Button::UP);
+Button downButton(10, Button::DOWN);
 
 int snakeArray[64];
 int snakeLength;
@@ -56,19 +52,16 @@ void setup() {
   //  strip.setBrightness(200);
 
   //set button listeners
-  leftButton.pressHandler(onLeft);
-  rightButton.pressHandler(onRight);
-  upButton.pressHandler(onUp);
-  downButton.pressHandler(onDown);
-  aButton.pressHandler(onUp);
-  bButton.pressHandler(onDown);
+  leftButton.pressHandler(onButtonPress);
+  rightButton.pressHandler(onButtonPress);
+  upButton.pressHandler(onButtonPress);
+  downButton.pressHandler(onButtonPress);
 
   //set initial snake conditions
   clearAndReset();
 
   //draw
-  updateNeopixel()
-  ;
+  updateNeopixel();
 }
 
 void loop() {
@@ -90,8 +83,6 @@ void processButtons() {
   rightButton.process();
   upButton.process();
   downButton.process();
-  aButton.process();
-  bButton.process();
 }
 
 void sound() {
@@ -204,27 +195,21 @@ void updateNeopixel() {
   //color egg
   strip.setPixelColor(eggPosition, 0, 160, 0);
 
-  //  Serial.println(snakeArray[0]);
-
   strip.show();
 }
 
-void onLeft() {
-  Serial.println("left");
-  snakeDirection = LEFT;
-}
-
-void onRight() {
-  Serial.println("right");
-  snakeDirection = RIGHT;
-}
-
-void onUp() {
-  Serial.println("up");
-  snakeDirection = UP;
-}
-
-void onDown() {
-  Serial.println("down");
-  snakeDirection = DOWN;
+void onButtonPress(int buttonType) {  
+  if (buttonType == Button::LEFT) {
+    Serial.println("left");
+    snakeDirection = LEFT;
+  } else if (buttonType == Button::RIGHT) {
+    Serial.println("right");
+    snakeDirection = RIGHT;
+  } else if (buttonType == Button::UP) {
+    Serial.println("up");
+    snakeDirection = UP;
+  } else if (buttonType == Button::DOWN) {
+    Serial.println("down");
+    snakeDirection = DOWN;
+  } 
 }
