@@ -23,12 +23,13 @@ class Button
     unsigned long lastCheck;
     int checkInt;
 
-    static const int LEFT   = 0;
-    static const int RIGHT  = 1;
-    static const int UP     = 2;
-    static const int DOWN   = 3;
+    static const int LEFT   = 1;
+    static const int RIGHT  = 2;
+    static const int UP     = 3;
+    static const int DOWN   = 4;
 
   private:
 };
+
 
 #endif

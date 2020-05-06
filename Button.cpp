@@ -17,6 +17,18 @@ Button::Button(int _buttonPin, int _buttonType):Button(_buttonPin)
   buttonType = _buttonType;
 }
 
+//Button::Button(int _buttonPin, int _buttonType)
+//{
+//  buttonType = _buttonType;
+//  buttonPin = _buttonPin;
+//
+//  pinMode(buttonPin, INPUT_PULLUP);
+//  digitalWrite(buttonPin, HIGH);
+//
+//  lastCheck = 0;
+//  checkInt = 20;
+//}
+
 void Button::process()
 {
   if (millis() < lastCheck + checkInt) return;

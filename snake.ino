@@ -1,5 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 #include "Button.h"
+#include "Controls.h"
 #include <Audio.h>
 #include <Wire.h>
 #include <SPI.h>
@@ -29,6 +30,8 @@ Button rightButton(9, Button::RIGHT);
 Button upButton(8, Button::UP);
 Button downButton(10, Button::DOWN);
 
+Controls controls;
+
 int snakeArray[64];
 int snakeLength;
 int snakeSpeed = 300;
@@ -57,6 +60,8 @@ void setup() {
   upButton.pressHandler(onButtonPress);
   downButton.pressHandler(onButtonPress);
 
+  controls.pressHandler(onButtonPress);
+
   //set initial snake conditions
   clearAndReset();
 
@@ -83,6 +88,7 @@ void processButtons() {
   rightButton.process();
   upButton.process();
   downButton.process();
+  controls.process();
 }
 
 void sound() {
